@@ -1,0 +1,29 @@
+{
+    "env": {
+        "es6": true,
+        "browser": true,
+        "node": true,
+        "jest/globals": true
+    },
+    "parser": "babel-eslint",
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "sourceType": "module"
+    },
+    "plugins": [
+        "jest",
+        "react",
+        "react-redux"
+    ],
+    "extends": [
+        "plugin:react/recommended",
+        "plugin:react-redux/recommended",
+        "plugin:jest/recommended",
+        "eslint:recommended"
+    ],
+    "rules": {
+        "react/no-typos": "error"
+    }
+}
