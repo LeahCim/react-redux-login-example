@@ -1,21 +1,71 @@
 import React, { Component } from 'react';
-import logo from '../logo.svg';
-import './App.css';
+import { Route, Switch, Redirect } from 'react-router';
+import { BrowserRouter as Router, Link } from 'react-router-dom';
+import { encode } from 'base-64';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
+import Login from './Login';
+import Data from './Data';
+import Page from './Page';
+import LogoutLink from './LogoutLink';
+import { LOGIN, DATA } from './shared/routes';
+import { CREDENTIALS } from './shared/constants';
+
+export default class App extends Component {
+
+  state = {
+    credentials: null
   }
-}
 
-export default App;
+  componentDidMount() {
+    this.setState({
+      credentials: localStorage.getItem(CREDENTIALS) || ''
+    });
+  }
+
+  setCredentials = (username, password) => {
+    const credentials = encode(`${username}:${password}`);
+
+    this.setState({
+      credentials
+    });
+
+    localStorage.setItem(CREDENTIALS, credentials);
+  }
+
+  resetCredentials = () => {
+    this.setState({
+      credentials: ''
+    });
+
+    localStorage.removeItem(CREDENTIALS);
+  }
+
+  loginRender = (props) =>
+    <div>
+      <Login setCredentials={this.setCredentials} {...props} />
+      <Link to={DATA}>Data</Link>
+    </div>
+
+  dataRender = (props) =>
+    <Data
+      credentials={this.state.credentials}
+      resetCredentials={this.resetCredentials}
+      {...props}
+    />
+
+  render = () =>
+    this.state.credentials !== null &&
+    <Router>
+      <Page>
+        <LogoutLink
+          credentials={this.state.credentials}
+          resetCredentials={this.resetCredentials}
+        />
+        <Switch>
+          <Route path={LOGIN} render={this.loginRender} />
+          <Route path={DATA} render={this.dataRender} />
+          <Redirect to={LOGIN} />
+        </Switch>
+      </Page>
+    </Router>
+}
