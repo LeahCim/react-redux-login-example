@@ -15,12 +15,14 @@
     "plugins": [
         "jest",
         "react",
-        "react-redux"
+        "react-redux",
+        "import"
     ],
     "extends": [
         "plugin:react/recommended",
         "plugin:react-redux/recommended",
         "plugin:jest/recommended",
+        "plugin:import/recommended",
         "eslint:recommended"
     ],
     "rules": {

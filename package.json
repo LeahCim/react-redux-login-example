@@ -17,12 +17,16 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
+    "cy": "cypress open",
+    "cy:run": "cypress run",
     "eject": "react-scripts eject"
   },
   "devDependencies": {
+    "cypress": "^3.0.3",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "eslint": "^5.1.0",
+    "eslint-plugin-import": "^2.13.0",
     "eslint-plugin-jest": "^21.18.0",
     "eslint-plugin-react": "^7.10.0",
     "eslint-plugin-react-redux": "^2.3.0",
