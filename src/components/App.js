@@ -1,43 +1,34 @@
 import React, { Component } from 'react';
 import { Route, Switch, Redirect } from 'react-router';
 import { BrowserRouter as Router, Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { encode } from 'base-64';
+import propTypes from 'prop-types';
 
 import Login from './Login';
 import Data from './Data';
 import Page from './Page';
 import LogoutLink from './LogoutLink';
 import { LOGIN, DATA } from './shared/routes';
-import { CREDENTIALS } from './shared/constants';
+import { loadCredentials, saveCredentials, deleteCredentials } from '../actions'
 
-export default class App extends Component {
+class App extends Component {
 
   state = {
     credentials: null
   }
 
   componentDidMount() {
-    this.setState({
-      credentials: localStorage.getItem(CREDENTIALS) || ''
-    });
+    this.props.dispatch(loadCredentials());
   }
 
   setCredentials = (username, password) => {
     const credentials = encode(`${username}:${password}`);
-
-    this.setState({
-      credentials
-    });
-
-    localStorage.setItem(CREDENTIALS, credentials);
+    this.props.dispatch(saveCredentials(credentials));
   }
 
   resetCredentials = () => {
-    this.setState({
-      credentials: ''
-    });
-
-    localStorage.removeItem(CREDENTIALS);
+    this.props.dispatch(deleteCredentials());
   }
 
   loginRender = (props) =>
@@ -48,17 +39,17 @@ export default class App extends Component {
 
   dataRender = (props) =>
     <Data
-      credentials={this.state.credentials}
+      credentials={this.props.credentials}
       resetCredentials={this.resetCredentials}
       {...props}
     />
 
   render = () =>
-    this.state.credentials !== null &&
+    this.props.credentials !== null &&
     <Router>
       <Page>
         <LogoutLink
-          credentials={this.state.credentials}
+          credentials={this.props.credentials}
           resetCredentials={this.resetCredentials}
         />
         <Switch>
@@ -69,3 +60,14 @@ export default class App extends Component {
       </Page>
     </Router>
 }
+
+App.propTypes = {
+  credentials: propTypes.string,
+  dispatch: propTypes.func.isRequired
+};
+
+const mapStateToProps = (state) => ({
+  credentials: state.credentials
+});
+
+export default connect(mapStateToProps)(App);

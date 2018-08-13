@@ -1,11 +1,17 @@
-import { encode } from 'base-64';
-
-import { LOGIN, RECEIVE_DATA } from '../actions';
+import { RECEIVE_DATA, SET_CREDENTIALS } from '../actions/actionTypes';
 
 export default function rootReducer(state = {}, action) {
     switch (action.type) {
-        case LOGIN: return { ...state, credentials: encode(`${action.username}:${action.password}`) };
-        case RECEIVE_DATA: return { ...state, data: action.data };
+        case SET_CREDENTIALS: return {
+            ...state,
+            credentials: action.credentials
+        };
+
+        case RECEIVE_DATA: return {
+            ...state,
+            data: action.data
+        };
+
         default: return state;
     }
 }

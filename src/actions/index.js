@@ -1,12 +1,31 @@
-export const LOGIN = 'LOGIN';
-export const GET_DATA = 'GET_DATA';
-export const RECEIVE_DATA = 'RECEIVE_DATA';
+import {
+    LOAD_CREDENTIALS,
+    SAVE_CREDENTIALS,
+    DELETE_CREDENTIALS,
+    SET_CREDENTIALS,
+    GET_DATA,
+    RECEIVE_DATA
+} from './actionTypes';
 
-export const login = (username, password) => ({
-    type: LOGIN,
-    username,
-    password
+export const loadCredentials = () => ({
+    type: LOAD_CREDENTIALS
 });
+
+export const saveCredentials = (credentials) => ({
+    type: SAVE_CREDENTIALS,
+    credentials
+})
+
+export const deleteCredentials = (credentials) => ({
+    type: DELETE_CREDENTIALS,
+    credentials
+})
+
+
+export const setCredentials = (credentials) => ({
+    type: SET_CREDENTIALS,
+    credentials
+})
 
 export const getData = (credentials) => ({
     type: GET_DATA,
