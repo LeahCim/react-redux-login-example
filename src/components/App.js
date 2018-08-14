@@ -14,10 +14,6 @@ import { loadCredentials, saveCredentials, deleteCredentials } from '../actions'
 
 class App extends Component {
 
-  state = {
-    credentials: null
-  }
-
   componentDidMount() {
     this.props.dispatch(loadCredentials());
   }
