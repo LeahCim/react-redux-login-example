@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 
 import { FieldGroup } from './FieldGroup';
 import { LoginButton } from './LoginButton';
@@ -70,4 +71,4 @@ class Login extends Component {
         </form>
 }
 
-export default connect()(Login);
+export default connect()(withRouter(Login));

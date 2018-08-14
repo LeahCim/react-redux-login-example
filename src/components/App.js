@@ -23,7 +23,7 @@ class App extends Component {
 
   loginRender = (props) =>
     <div>
-      <Login {...props} />
+      <Login />
       <Link to={DATA}>Data</Link>
     </div>
 
