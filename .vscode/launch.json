@@ -12,7 +12,8 @@
             "webRoot": "${workspaceFolder}/src",
             "sourceMapPathOverrides": {
                 "webpack:///src/*": "${webRoot}/*"
-            }
+            },
+            "smartStep": true
         }
     ]
 }
