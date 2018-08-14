@@ -13,12 +13,14 @@ import { loadCredentials, deleteCredentials } from '../actions'
 
 class App extends Component {
 
-  componentDidMount() {
-    this.props.dispatch(loadCredentials());
+  static propTypes = {
+    credentials: propTypes.string,
+    loadCredentials: propTypes.func.isRequired,
+    deleteCredentials: propTypes.func.isRequired
   }
 
-  resetCredentials = () => {
-    this.props.dispatch(deleteCredentials());
+  componentDidMount() {
+    this.props.loadCredentials();
   }
 
   loginRender = (props) =>
@@ -30,7 +32,7 @@ class App extends Component {
   dataRender = (props) =>
     <Data
       credentials={this.props.credentials}
-      resetCredentials={this.resetCredentials}
+      resetCredentials={this.props.deleteCredentials}
       {...props}
     />
 
@@ -40,7 +42,7 @@ class App extends Component {
       <Page>
         <LogoutLink
           credentials={this.props.credentials}
-          resetCredentials={this.resetCredentials}
+          resetCredentials={this.props.deleteCredentials}
         />
         <Switch>
           <Route path={LOGIN} render={this.loginRender} />
@@ -51,13 +53,13 @@ class App extends Component {
     </Router>
 }
 
-App.propTypes = {
-  credentials: propTypes.string,
-  dispatch: propTypes.func.isRequired
-};
-
 const mapStateToProps = (state) => ({
   credentials: state.credentials
 });
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = {
+  loadCredentials,
+  deleteCredentials
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
