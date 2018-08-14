@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 import { FieldGroup } from './FieldGroup';
 import { LoginButton } from './LoginButton';
 import { DATA } from './shared/routes';
 import { DEFAULT_USERNAME, DEFAULT_PASSWORD } from '../config';
+import { saveCredentials } from '../actions';
 
-export default class Login extends Component {
+class Login extends Component {
 
     static propTypes = {
-        setCredentials: PropTypes.func.isRequired,
-        history: PropTypes.object.isRequired
+        history: PropTypes.object.isRequired,
+        dispatch: PropTypes.func.isRequired
     }
 
     state = {
@@ -32,14 +34,18 @@ export default class Login extends Component {
         event.preventDefault();
 
         const { username, password } = this.state;
-        const { setCredentials, history } = this.props;
+        const { history } = this.props;
 
-        setCredentials(username, password);
+        this.setCredentials(username, password);
         history.push(DATA);
     }
 
     isValid = () =>
         this.state.username.length && this.state.password.length
+
+    setCredentials = (username, password) => {
+        this.props.dispatch(saveCredentials(username, password));
+    }
 
     render = () =>
         <form id="login-form">
@@ -63,3 +69,5 @@ export default class Login extends Component {
             />
         </form>
 }
+
+export default connect()(Login);
