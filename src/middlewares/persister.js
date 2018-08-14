@@ -1,33 +1,31 @@
 import {
-    LOAD_CREDENTIALS,
-    SAVE_CREDENTIALS,
-    DELETE_CREDENTIALS
-} from '../actions/actionTypes';
+    PERSISTER_LOAD,
+    PERSISTER_SAVE,
+    PERSISTER_DELETE
+} from '../actions/persisterActionTypes';
 
-import { setCredentials } from '../actions'
+import { receive } from '../actions/persisterActionCreators';
 
-const CREDENTIALS = 'credentials';
-
-function loadCredentials(store) {
-    const credentials = localStorage.getItem(CREDENTIALS) || '';
-    store.dispatch(setCredentials(credentials));
+function load(store, key) {
+    const value = localStorage.getItem(key);
+    store.dispatch(receive(key, value));
 }
 
-function saveCredentials(store, credentials) {
-    localStorage.setItem(CREDENTIALS, credentials);
-    store.dispatch(setCredentials(credentials));
+function save(store, key, value) {
+    localStorage.setItem(key, value);
+    store.dispatch(receive(key, value));
 }
 
-function deleteCredentials(store, credentials) {
-    localStorage.removeItem(CREDENTIALS);
-    store.dispatch(setCredentials(''));
+function remove(store, key) {
+    localStorage.removeItem(key);
+    store.dispatch(receive(key, null));
 }
 
 const persister = store => next => action => {
     switch (action.type) {
-        case LOAD_CREDENTIALS: loadCredentials(store); break;
-        case SAVE_CREDENTIALS: saveCredentials(store, action.credentials); break
-        case DELETE_CREDENTIALS: deleteCredentials(store); break
+        case PERSISTER_LOAD: load(store, action.key); break;
+        case PERSISTER_SAVE: save(store, action.key, action.value); break
+        case PERSISTER_DELETE: remove(store, action.key); break
         default:
     }
     return next(action);
