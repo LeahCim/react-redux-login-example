@@ -15,19 +15,19 @@ class Login extends Component {
         username: PropTypes.string,
         password: PropTypes.string,
         history: PropTypes.object.isRequired,
-        dispatch: PropTypes.func.isRequired,
-        saveCredentials: PropTypes.func.isRequired
+        saveCredentials: PropTypes.func.isRequired,
+        updateState: PropTypes.func.isRequired
     }
 
     onUsernameChange = ({ target }) =>
-        this.props.dispatch(updateState({
+        this.props.updateState({
             username: target.value
-        }))
+        })
 
     onPasswordChange = ({ target }) =>
-        this.props.dispatch(updateState({
+        this.props.updateState({
             password: target.value
-        }))
+        })
 
     onSubmit = (event) => {
         event.preventDefault();
@@ -71,7 +71,8 @@ const mapStateToProps = ({ username, password }) => ({
 });
 
 const mapDispatchToProps = {
-    saveCredentials
+    saveCredentials,
+    updateState
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Login));
