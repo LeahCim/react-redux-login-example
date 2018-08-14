@@ -15,7 +15,8 @@ class Login extends Component {
         username: PropTypes.string,
         password: PropTypes.string,
         history: PropTypes.object.isRequired,
-        dispatch: PropTypes.func.isRequired
+        dispatch: PropTypes.func.isRequired,
+        saveCredentials: PropTypes.func.isRequired
     }
 
     onUsernameChange = ({ target }) =>
@@ -34,16 +35,12 @@ class Login extends Component {
         const { username, password } = this.props;
         const { history } = this.props;
 
-        this.setCredentials(username, password);
+        this.props.saveCredentials(username, password);
         history.push(DATA);
     }
 
     isValid = () =>
         this.props.username.length && this.props.password.length
-
-    setCredentials = (username, password) => {
-        this.props.dispatch(saveCredentials(username, password));
-    }
 
     render = () =>
         <form id="login-form">
@@ -73,4 +70,8 @@ const mapStateToProps = ({ username, password }) => ({
     password: password || DEFAULT_PASSWORD
 });
 
-export default connect(mapStateToProps)(withRouter(Login));
+const mapDispatchToProps = {
+    saveCredentials
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Login));
