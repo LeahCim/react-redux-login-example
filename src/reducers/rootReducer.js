@@ -1,4 +1,4 @@
-import { RECEIVE_DATA, } from '../actions/actionTypes';
+import { RECEIVE_DATA, UPDATE_STATE } from '../actions/actionTypes';
 import { PERSISTER_RECEIVE } from '../actions/persisterActionTypes';
 import { CREDENTIALS } from '../constants';
 
@@ -20,6 +20,11 @@ export default function rootReducer(state = {}, action) {
         case RECEIVE_DATA: return {
             ...state,
             data: action.data
+        };
+
+        case UPDATE_STATE: return {
+            ...state,
+            ...action.update
         };
 
         default: return state;

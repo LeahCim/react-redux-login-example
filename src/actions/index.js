@@ -2,7 +2,8 @@ import { encode } from 'base-64';
 
 import {
     GET_DATA,
-    RECEIVE_DATA
+    RECEIVE_DATA,
+    UPDATE_STATE
 } from './actionTypes';
 
 import { load, save, remove } from './persisterActionCreators';
@@ -25,4 +26,9 @@ export const getData = (credentials) => ({
 export const receiveData = (data) => ({
     type: RECEIVE_DATA,
     data
+});
+
+export const updateState = (update) => ({
+    type: UPDATE_STATE,
+    update
 });

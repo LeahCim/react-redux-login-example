@@ -7,34 +7,31 @@ import { FieldGroup } from './FieldGroup';
 import { LoginButton } from './LoginButton';
 import { DATA } from './shared/routes';
 import { DEFAULT_USERNAME, DEFAULT_PASSWORD } from '../config';
-import { saveCredentials } from '../actions';
+import { saveCredentials, updateState } from '../actions';
 
 class Login extends Component {
 
     static propTypes = {
+        username: PropTypes.string,
+        password: PropTypes.string,
         history: PropTypes.object.isRequired,
         dispatch: PropTypes.func.isRequired
     }
 
-    state = {
-        username: DEFAULT_USERNAME,
-        password: DEFAULT_PASSWORD
-    }
-
     onUsernameChange = ({ target }) =>
-        this.setState({
+        this.props.dispatch(updateState({
             username: target.value
-        })
+        }))
 
     onPasswordChange = ({ target }) =>
-        this.setState({
+        this.props.dispatch(updateState({
             password: target.value
-        })
+        }))
 
     onSubmit = (event) => {
         event.preventDefault();
 
-        const { username, password } = this.state;
+        const { username, password } = this.props;
         const { history } = this.props;
 
         this.setCredentials(username, password);
@@ -42,7 +39,7 @@ class Login extends Component {
     }
 
     isValid = () =>
-        this.state.username.length && this.state.password.length
+        this.props.username.length && this.props.password.length
 
     setCredentials = (username, password) => {
         this.props.dispatch(saveCredentials(username, password));
@@ -54,14 +51,14 @@ class Login extends Component {
                 label="Username"
                 id="username"
                 autoFocus="autoFocus"
-                value={this.state.username}
+                value={this.props.username}
                 onChange={this.onUsernameChange}
             />
             <FieldGroup
                 label="Password"
                 id="password"
                 type="password"
-                value={this.state.password}
+                value={this.props.password}
                 onChange={this.onPasswordChange}
             />
             <LoginButton
@@ -71,4 +68,9 @@ class Login extends Component {
         </form>
 }
 
-export default connect()(withRouter(Login));
+const mapStateToProps = ({ username, password }) => ({
+    username: username || DEFAULT_USERNAME,
+    password: password || DEFAULT_PASSWORD
+});
+
+export default connect(mapStateToProps)(withRouter(Login));
