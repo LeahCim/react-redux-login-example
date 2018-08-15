@@ -5,7 +5,7 @@ import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 import registerServiceWorker from './registerServiceWorker';
-import App from './components/App';
+import AppContainer from './components/AppContainer';
 import rootReducer from './reducers/rootReducer';
 import persister from './middlewares/persister';
 
@@ -17,7 +17,7 @@ const store = createStore(rootReducer, initialState, enhancers);
 
 ReactDOM.render(
     <Provider store={store}>
-        <App />
+        <AppContainer />
     </Provider>, document.getElementById('root'));
 
 registerServiceWorker();

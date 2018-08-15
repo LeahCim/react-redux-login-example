@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Switch, Redirect } from 'react-router';
 import { BrowserRouter as Router, Link } from 'react-router-dom';
-import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 
 import Login from './Login';
@@ -9,9 +8,8 @@ import Data from './Data';
 import Page from './Page';
 import LogoutLink from './LogoutLink';
 import { LOGIN, DATA } from './shared/routes';
-import { loadCredentials, deleteCredentials } from '../actions'
 
-class App extends Component {
+export default class App extends Component {
 
   static propTypes = {
     credentials: propTypes.string,
@@ -52,14 +50,3 @@ class App extends Component {
       </Page>
     </Router>
 }
-
-const mapStateToProps = (state) => ({
-  credentials: state.credentials
-});
-
-const mapDispatchToProps = {
-  loadCredentials,
-  deleteCredentials
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
