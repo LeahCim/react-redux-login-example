@@ -13,7 +13,9 @@
             "sourceMapPathOverrides": {
                 "webpack:///src/*": "${webRoot}/*"
             },
-            "smartStep": true
+            "runtimeArgs": [
+                "--disable-web-security"
+            ]
         }
     ]
 }
