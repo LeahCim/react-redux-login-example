@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import App from './App';
-import { loadCredentials, deleteCredentials } from '../actions';
+import { loadCredentials, deleteCredentials } from '../actions/credentialsActionCreators';
 
 const mapStateToProps = (state) => ({
     credentials: state.credentials

@@ -7,7 +7,8 @@ import { FieldGroup } from './FieldGroup';
 import { LoginButton } from './LoginButton';
 import { DATA } from './shared/routes';
 import { DEFAULT_USERNAME, DEFAULT_PASSWORD } from '../config';
-import { saveCredentials, updateState } from '../actions';
+import { saveCredentials } from '../actions/credentialsActionCreators';
+import { updateState } from '../actions';
 
 class Login extends Component {
 

@@ -1,36 +1,25 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import Api from '../api';
-
 export default class Data extends Component {
 
     static propTypes = {
         credentials: PropTypes.string.isRequired,
-        deleteCredentials: PropTypes.func.isRequired
-    }
-
-    state = {
-        data: []
+        data: PropTypes.arrayOf(PropTypes.shape({
+            Id: PropTypes.string.isRequired,
+            Name: PropTypes.string.isRequired
+        })).isRequired,
+        getData: PropTypes.func.isRequired
     }
 
     async componentDidMount() {
-        const { credentials, deleteCredentials } = this.props;
+        const { credentials, getData } = this.props;
 
-        try {
-            const { Results } = await Api.getData(credentials);
-
-            this.setState({
-                data: Results
-            });
-
-        } catch (error) {
-            deleteCredentials();
-        }
+        getData(credentials);
     }
 
     render() {
-        const { data } = this.state;
+        const { data } = this.props;
 
         return (
             <ul id="data">

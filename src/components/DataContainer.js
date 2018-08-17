@@ -1,14 +1,15 @@
 import { connect } from 'react-redux';
 
 import Data from './Data';
-import { deleteCredentials } from '../actions';
+import { getData } from '../actions';
 
 const mapStateToProps = (state) => ({
-    credentials: state.credentials
+    credentials: state.credentials,
+    data: state.data || []
 });
 
 const mapDispatchToProps = {
-    deleteCredentials
+    getData
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Data);

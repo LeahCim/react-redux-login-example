@@ -1,26 +1,22 @@
-import { encode } from 'base-64';
+import { DATA_URI } from '../config';
+import { FETCH_REQUEST } from './fetcherActionTypes';
 
 import {
-    GET_DATA,
     RECEIVE_DATA,
     UPDATE_STATE
 } from './actionTypes';
 
-import { load, save, remove } from './persisterActionCreators';
-import { CREDENTIALS } from '../constants';
-
-export const loadCredentials = () => load(CREDENTIALS);
-
-export const saveCredentials = (username, password) => {
-    const credentials = encode(`${username}:${password}`);
-    return save(CREDENTIALS, credentials);
-}
-
-export const deleteCredentials = () => remove(CREDENTIALS);
-
 export const getData = (credentials) => ({
-    type: GET_DATA,
-    credentials
+    type: FETCH_REQUEST,
+    responseType: RECEIVE_DATA,
+    uri: DATA_URI,
+    options: {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json; charset=utf-8",
+            "Authorization": `Basic ${credentials}`
+        }
+    }
 });
 
 export const receiveData = (data) => ({

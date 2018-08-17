@@ -13,14 +13,20 @@ function persisterReceive(state, action) {
     }
 }
 
+function receiveData(state, action) {
+    if (action.error) return state;
+
+    return {
+        ...state,
+        data: action.payload.Results
+    };
+}
+
 export default function rootReducer(state = {}, action) {
     switch (action.type) {
         case PERSISTER_RECEIVE: return persisterReceive(state, action);
 
-        case RECEIVE_DATA: return {
-            ...state,
-            data: action.data
-        };
+        case RECEIVE_DATA: return receiveData(state, action);
 
         case UPDATE_STATE: return {
             ...state,
