@@ -1,10 +1,6 @@
 import { DATA_URI } from '../config';
 import { FETCH_REQUEST } from './fetcherActionTypes';
-
-import {
-    RECEIVE_DATA,
-    UPDATE_STATE
-} from './actionTypes';
+import { RECEIVE_DATA } from './actionTypes';
 
 export const getData = (credentials) => ({
     type: FETCH_REQUEST,
@@ -22,9 +18,4 @@ export const getData = (credentials) => ({
 export const receiveData = (data) => ({
     type: RECEIVE_DATA,
     data
-});
-
-export const updateState = (update) => ({
-    type: UPDATE_STATE,
-    update
 });

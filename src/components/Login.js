@@ -10,8 +10,7 @@ export default class Login extends Component {
 
     static propTypes = {
         history: PropTypes.object.isRequired,
-        saveCredentials: PropTypes.func.isRequired,
-        updateState: PropTypes.func.isRequired
+        saveCredentials: PropTypes.func.isRequired
     }
 
     state = {
