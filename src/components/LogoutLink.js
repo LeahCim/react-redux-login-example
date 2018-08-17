@@ -4,14 +4,14 @@ import PropTypes from 'prop-types';
 
 import { LOGIN } from './shared/routes';
 
-export default function LogoutLink({ credentials, resetCredentials }) {
-    if (credentials)
-        return <Link to={LOGIN} onClick={resetCredentials}>Log out</Link>
+const LogoutLink = ({ credentials, resetCredentials }) =>
+    !!credentials &&
+    <Link to={LOGIN} onClick={resetCredentials}>Log out</Link>;
 
-    return null;
-}
 
 LogoutLink.propTypes = {
-    credentials: PropTypes.string.isRequired,
+    credentials: PropTypes.string,
     resetCredentials: PropTypes.func.isRequired
 }
+
+export default LogoutLink;

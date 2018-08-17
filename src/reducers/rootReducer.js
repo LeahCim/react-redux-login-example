@@ -1,12 +1,12 @@
 import { RECEIVE_DATA, UPDATE_STATE } from '../actions/actionTypes';
 import { PERSISTER_RECEIVE } from '../actions/persisterActionTypes';
-import { CREDENTIALS } from '../constants';
+import { CREDENTIALS, NO_CREDENTIALS } from '../constants';
 
 function persisterReceive(state, action) {
     switch (action.key) {
         case CREDENTIALS: return {
             ...state,
-            credentials: action.value || ''
+            credentials: action.value || NO_CREDENTIALS
         };
 
         default: return state;

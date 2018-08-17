@@ -8,8 +8,9 @@ import registerServiceWorker from './registerServiceWorker';
 import AppContainer from './components/AppContainer';
 import rootReducer from './reducers/rootReducer';
 import persister from './middlewares/persister';
+import { PENDING_CREDENTIALS } from './constants';
 
-const initialState = { credentials: null };
+const initialState = { credentials: PENDING_CREDENTIALS };
 const middlewares = applyMiddleware(persister);
 const enhancers = composeWithDevTools(middlewares);
 

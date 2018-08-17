@@ -65,10 +65,13 @@ class Login extends Component {
         </form>
 }
 
-const mapStateToProps = ({ username, password }) => ({
-    username: username || DEFAULT_USERNAME,
-    password: password || DEFAULT_PASSWORD
-});
+const mapStateToProps = ({
+    username = DEFAULT_USERNAME,
+    password = DEFAULT_PASSWORD }) => (
+        {
+            username,
+            password
+        });
 
 const mapDispatchToProps = {
     saveCredentials,

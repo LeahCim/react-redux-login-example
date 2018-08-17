@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import Api from '../api';
-import { LOGIN } from './shared/routes';
 
 export default class Data extends Component {
 
     static propTypes = {
         credentials: PropTypes.string.isRequired,
-        resetCredentials: PropTypes.func.isRequired
+        deleteCredentials: PropTypes.func.isRequired
     }
 
     state = {
@@ -17,9 +15,7 @@ export default class Data extends Component {
     }
 
     async componentDidMount() {
-        const { credentials, resetCredentials } = this.props;
-
-        if (!credentials) return;
+        const { credentials, deleteCredentials } = this.props;
 
         try {
             const { Results } = await Api.getData(credentials);
@@ -29,16 +25,12 @@ export default class Data extends Component {
             });
 
         } catch (error) {
-            resetCredentials();
+            deleteCredentials();
         }
     }
 
     render() {
-        const { credentials } = this.props;
         const { data } = this.state;
-
-        if (!credentials.length)
-            return <Redirect to={LOGIN} />;
 
         return (
             <ul id="data">
