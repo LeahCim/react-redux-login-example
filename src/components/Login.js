@@ -1,16 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
 
 import { FieldGroup } from './FieldGroup';
 import { LoginButton } from './LoginButton';
 import { DATA } from './shared/routes';
 import { DEFAULT_USERNAME, DEFAULT_PASSWORD } from '../config';
-import { saveCredentials } from '../actions/credentialsActionCreators';
-import { updateState } from '../actions';
 
-class Login extends Component {
+export default class Login extends Component {
 
     static propTypes = {
         history: PropTypes.object.isRequired,
@@ -68,10 +64,3 @@ class Login extends Component {
             />
         </form>
 }
-
-const mapDispatchToProps = {
-    saveCredentials,
-    updateState
-}
-
-export default connect(null, mapDispatchToProps)(withRouter(Login));
