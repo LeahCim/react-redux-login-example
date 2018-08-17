@@ -13,27 +13,30 @@ import { updateState } from '../actions';
 class Login extends Component {
 
     static propTypes = {
-        username: PropTypes.string,
-        password: PropTypes.string,
         history: PropTypes.object.isRequired,
         saveCredentials: PropTypes.func.isRequired,
         updateState: PropTypes.func.isRequired
     }
 
+    state = {
+        username: DEFAULT_USERNAME,
+        password: DEFAULT_PASSWORD
+    }
+
     onUsernameChange = ({ target }) =>
-        this.props.updateState({
+        this.setState({
             username: target.value
         })
 
     onPasswordChange = ({ target }) =>
-        this.props.updateState({
+        this.setState({
             password: target.value
         })
 
     onSubmit = (event) => {
         event.preventDefault();
 
-        const { username, password } = this.props;
+        const { username, password } = this.state;
         const { history } = this.props;
 
         this.props.saveCredentials(username, password);
@@ -41,7 +44,7 @@ class Login extends Component {
     }
 
     isValid = () =>
-        this.props.username.length && this.props.password.length
+        this.state.username.length && this.state.password.length
 
     render = () =>
         <form id="login-form">
@@ -49,14 +52,14 @@ class Login extends Component {
                 label="Username"
                 id="username"
                 autoFocus="autoFocus"
-                value={this.props.username}
+                value={this.state.username}
                 onChange={this.onUsernameChange}
             />
             <FieldGroup
                 label="Password"
                 id="password"
                 type="password"
-                value={this.props.password}
+                value={this.state.password}
                 onChange={this.onPasswordChange}
             />
             <LoginButton
@@ -66,17 +69,9 @@ class Login extends Component {
         </form>
 }
 
-const mapStateToProps = ({
-    username = DEFAULT_USERNAME,
-    password = DEFAULT_PASSWORD }) => (
-        {
-            username,
-            password
-        });
-
 const mapDispatchToProps = {
     saveCredentials,
     updateState
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Login));
+export default connect(null, mapDispatchToProps)(withRouter(Login));
