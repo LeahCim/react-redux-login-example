@@ -1,21 +1,15 @@
 import { DATA_URI } from '../config';
-import { FETCH_REQUEST } from './fetcherActionTypes';
 import { RECEIVE_DATA } from './actionTypes';
+import { fetchRequest } from './fetcherAcitonCreators';
 
-export const getData = (credentials) => ({
-    type: FETCH_REQUEST,
-    responseType: RECEIVE_DATA,
-    uri: DATA_URI,
-    options: {
+export const getData = (credentials) => fetchRequest(
+    RECEIVE_DATA,
+    DATA_URI,
+    {
         method: "GET",
         headers: {
             "Content-Type": "application/json; charset=utf-8",
             "Authorization": `Basic ${credentials}`
         }
     }
-});
-
-export const receiveData = (data) => ({
-    type: RECEIVE_DATA,
-    data
-});
+);
