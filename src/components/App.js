@@ -13,9 +13,7 @@ import PrivateRoute from './PrivateRoute';
 export default class App extends Component {
 
   static propTypes = {
-    credentials: propTypes.string,
     loadCredentials: propTypes.func.isRequired,
-    deleteCredentials: propTypes.func.isRequired
   }
 
   componentDidMount() {
@@ -31,10 +29,7 @@ export default class App extends Component {
   render = () =>
     <Router>
       <Page>
-        <LogoutLink
-          credentials={this.props.credentials}
-          resetCredentials={this.props.deleteCredentials}
-        />
+        <LogoutLink />
         <Switch>
           <Route path={LOGIN} render={this.loginRender} />
           <PrivateRoute path={DATA} component={DataContainer} />

@@ -1,15 +1,10 @@
 import { connect } from 'react-redux';
 
 import App from './App';
-import { loadCredentials, deleteCredentials } from '../actions/credentialsActionCreators';
-
-const mapStateToProps = (state) => ({
-    credentials: state.credentials
-});
+import { loadCredentials } from '../actions/credentialsActionCreators';
 
 const mapDispatchToProps = {
     loadCredentials,
-    deleteCredentials
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(null, mapDispatchToProps)(App);
