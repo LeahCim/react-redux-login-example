@@ -14,7 +14,6 @@ export default class Data extends Component {
 
     async componentDidMount() {
         const { credentials, getData } = this.props;
-
         getData(credentials);
     }
 
