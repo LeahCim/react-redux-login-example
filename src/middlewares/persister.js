@@ -15,13 +15,13 @@ async function load(store, key) {
     store.dispatch(receive(key, value));
 }
 
-async function save(store, key, value) {
-    await storage.setItem(key, value);
+function save(store, key, value) {
+    storage.setItem(key, value);
     store.dispatch(receive(key, value));
 }
 
-async function remove(store, key) {
-    await storage.removeItem(key);
+function remove(store, key) {
+    storage.removeItem(key);
     store.dispatch(receive(key, null));
 }
 

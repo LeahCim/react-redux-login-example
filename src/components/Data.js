@@ -12,7 +12,7 @@ export default class Data extends Component {
         getData: PropTypes.func.isRequired
     }
 
-    async componentDidMount() {
+    componentDidMount() {
         const { credentials, getData } = this.props;
         getData(credentials);
     }

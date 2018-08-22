@@ -16,12 +16,14 @@ const request = async (store, { responseType, uri, options }) => {
 };
 
 const fetcher = store => next => action => {
+    const result = next(action);
+
     switch (action.type) {
         case FETCH_REQUEST: request(store, action); break;
         default:
     }
 
-    return next(action);
+    return result;
 }
 
 export default fetcher;

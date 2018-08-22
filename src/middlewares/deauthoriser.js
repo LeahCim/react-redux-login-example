@@ -2,6 +2,8 @@ import { RECEIVE_DATA } from '../actions/actionTypes';
 import { deleteCredentials } from '../actions/credentialsActionCreators';
 
 const deauthoriser = store => next => action => {
+    const result = next(action);
+
     if (action.type === RECEIVE_DATA &&
         action.error &&
         action.payload.status === 401) {
@@ -9,7 +11,7 @@ const deauthoriser = store => next => action => {
         store.dispatch(deleteCredentials());
     }
 
-    return next(action);
+    return result;
 };
 
 export default deauthoriser
