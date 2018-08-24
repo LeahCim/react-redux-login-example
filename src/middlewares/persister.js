@@ -1,4 +1,4 @@
-import localForage from 'localforage';
+import storage from 'localforage';
 
 import {
     PERSISTER_LOAD,
@@ -7,8 +7,6 @@ import {
 } from '../actions/persisterActionTypes';
 
 import { receive } from '../actions/persisterActionCreators';
-
-const storage = localForage;
 
 async function load(store, key) {
     const value = await storage.getItem(key);
