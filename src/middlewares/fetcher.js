@@ -1,5 +1,5 @@
 import { FETCH_REQUEST } from "../actions/fetcherActionTypes";
-import { fetchResponse } from "../actions/fetcherAcitonCreators";
+import { fetchResponse } from "../actions/fetcherActionCreators";
 
 const request = async (store, { responseType, uri, options }) => {
     try {

@@ -1,6 +1,6 @@
 import { DATA_URI } from '../config';
 import { RECEIVE_DATA } from './actionTypes';
-import { fetchRequest } from './fetcherAcitonCreators';
+import { fetchRequest } from './fetcherActionCreators';
 
 export const getData = (credentials) => fetchRequest(
     RECEIVE_DATA,
