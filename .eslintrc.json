@@ -27,6 +27,7 @@
         "react-app"
     ],
     "rules": {
-        "react/no-typos": "error"
+        "react/no-typos": "error",
+        "react/no-unused-prop-types": "error"
     }
 }
