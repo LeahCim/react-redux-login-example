@@ -1,17 +1,22 @@
 import { FETCH_REQUEST } from "../actions/fetcherActionTypes";
 import { fetchResponse } from "../actions/fetcherActionCreators";
 
-const request = async (store, { responseType, uri, options }) => {
-    try {
-        const response = await fetch(uri, options);
+async function tryFetch(store, { responseType, uri, options }) {
+    const response = await fetch(uri, options);
 
-        if (response.status === 200)
-            store.dispatch(fetchResponse(responseType, await response.json()));
-        else
-            store.dispatch(fetchResponse(responseType, response, true));
+    if (response.status === 200) {
+        const payload = await response.json();
+        store.dispatch(fetchResponse(responseType, payload));
+    } else
+        store.dispatch(fetchResponse(responseType, response, true));
+}
+
+const request = async (store, action) => {
+    try {
+        await tryFetch(store, action);
 
     } catch (error) {
-        store.dispatch(fetchResponse(responseType, error, true));
+        store.dispatch(fetchResponse(action.responseType, error, true));
     }
 };
 
