@@ -9,8 +9,7 @@ function* tryFetch({ responseType, uri, options }) {
     if (response.status === 200) {
         const payload = yield call([response, response.json]);
         yield put(fetchResponse(responseType, payload));
-    }
-    else
+    } else
         yield put(fetchResponse(responseType, response, true));
 }
 
