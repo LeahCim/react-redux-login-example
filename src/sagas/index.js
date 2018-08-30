@@ -5,5 +5,9 @@ import watchFetchRequest from './watchFetchRequest';
 import watchDeauthorise from './watchDeauthorise';
 
 export default function* rootSaga() {
-    yield all([watchPersist(), watchFetchRequest(), watchDeauthorise()]);
+    yield all([
+        watchPersist(),
+        watchFetchRequest(),
+        watchDeauthorise()
+    ]);
 }
