@@ -3,22 +3,22 @@ import { takeEvery, call, put } from 'redux-saga/effects';
 import { FETCH_REQUEST } from "../actions/fetcherActionTypes";
 import { fetchResponse } from "../actions/fetcherActionCreators";
 
-function* tryFetch({ responseType, uri, options }) {
-    const response = yield call(fetch, uri, options);
+async function fetchJson(uri, options) {
+    const response = await fetch(uri, options);
 
-    if (response.status === 200) {
-        const payload = yield call([response, response.json]);
-        yield put(fetchResponse(responseType, payload));
-    } else
-        yield put(fetchResponse(responseType, response, true));
+    if (response.status === 200)
+        return response.json();
+    else
+        return Promise.reject(response);
 }
 
-function* fetchRequest(action) {
+function* fetchRequest({ responseType, uri, options }) {
     try {
-        yield* tryFetch(action);
+        const payload = yield call(fetchJson, uri, options);
+        yield put(fetchResponse(responseType, payload));
 
     } catch (error) {
-        yield put(fetchResponse(action.responseType, error, true));
+        yield put(fetchResponse(responseType, error, true));
     }
 }
 
