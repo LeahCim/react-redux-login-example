@@ -1,22 +1,22 @@
 import { FETCH_REQUEST } from "../actions/fetcherActionTypes";
 import { fetchResponse } from "../actions/fetcherActionCreators";
 
-async function tryFetch(store, { responseType, uri, options }) {
+async function fetchJson(uri, options) {
     const response = await fetch(uri, options);
 
-    if (response.status === 200) {
-        const payload = await response.json();
-        store.dispatch(fetchResponse(responseType, payload));
-    } else
-        store.dispatch(fetchResponse(responseType, response, true));
+    if (response.status === 200)
+        return response.json();
+    else
+        return Promise.reject(response);
 }
 
-const request = async (store, action) => {
+const fetchRequest = async (store, { responseType, uri, options }) => {
     try {
-        await tryFetch(store, action);
+        const payload = await fetchJson(uri, options);
+        store.dispatch(fetchResponse(responseType, payload));
 
     } catch (error) {
-        store.dispatch(fetchResponse(action.responseType, error, true));
+        store.dispatch(fetchResponse(responseType, error, true));
     }
 };
 
@@ -24,7 +24,7 @@ const fetcher = store => next => action => {
     const result = next(action);
 
     switch (action.type) {
-        case FETCH_REQUEST: request(store, action); break;
+        case FETCH_REQUEST: fetchRequest(store, action); break;
         default:
     }
 
