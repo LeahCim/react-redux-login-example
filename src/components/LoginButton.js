@@ -1,19 +1,17 @@
 import React from 'react';
-import { Button } from 'react-bootstrap';
+import { Button } from 'reactstrap';
 import PropTypes from 'prop-types';
 
-export const LoginButton = ({ onSubmit, isEnabled }) =>
+export const LoginButton = ({ disabled }) =>
     <Button
         type="submit"
-        bsSize="large"
+        size="lg"
         block
-        onClick={onSubmit}
-        disabled={!isEnabled()}
+        disabled={disabled}
     >
         Log in
     </Button>;
 
 LoginButton.propTypes = {
-    onSubmit: PropTypes.func.isRequired,
-    isEnabled: PropTypes.func.isRequired
+    disabled: PropTypes.bool.isRequired
 }

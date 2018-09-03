@@ -42,11 +42,16 @@ export default class Login extends Component {
         this.state.username.length && this.state.password.length
 
     render = () =>
-        <form id="login-form">
+        <form
+            id="login-form"
+            className="was-validated"
+            onSubmit={this.onSubmit}
+        >
             <FieldGroup
                 label="Username"
                 id="username"
-                autoFocus="autoFocus"
+                type="text"
+                autoFocus
                 value={this.state.username}
                 onChange={this.onUsernameChange}
             />
@@ -58,8 +63,7 @@ export default class Login extends Component {
                 onChange={this.onPasswordChange}
             />
             <LoginButton
-                onSubmit={this.onSubmit}
-                isEnabled={this.isValid}
+                disabled={!this.isValid()}
             />
         </form>
 }
