@@ -2,12 +2,9 @@ import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import createSagaMiddleware from 'redux-saga';
 
+import initialState from './initialState';
 import rootReducer from './reducers/rootReducer';
 import rootSaga from './sagas';
-
-import { PENDING_CREDENTIALS } from './constants';
-
-const initialState = { credentials: PENDING_CREDENTIALS };
 
 const sagaMiddleware = createSagaMiddleware();
 const middlewares = applyMiddleware(sagaMiddleware);
