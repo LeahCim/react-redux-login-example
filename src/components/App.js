@@ -20,7 +20,7 @@ export default class App extends Component {
     this.props.loadCredentials();
   }
 
-  loginRender = (props) =>
+  loginRender = () =>
     <div>
       <LoginContainer />
       <Link to={DATA}>Data</Link>
