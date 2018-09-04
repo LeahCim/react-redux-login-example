@@ -20,18 +20,17 @@ export default class App extends Component {
     this.props.loadCredentials();
   }
 
-  loginRender = () =>
-    <div>
-      <LoginContainer />
-      <Link to={DATA}>Data</Link>
-    </div>
-
   render = () =>
     <Router>
       <Page>
         <LogoutLink />
         <Switch>
-          <Route path={LOGIN} render={this.loginRender} />
+          <Route path={LOGIN}>
+            <div>
+              <LoginContainer />
+              <Link to={DATA}>Data</Link>
+            </div>
+          </Route>
           <PrivateRoute path={DATA} component={DataContainer} />
           <Redirect to={LOGIN} />
         </Switch>
