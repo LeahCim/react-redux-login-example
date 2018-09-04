@@ -5,7 +5,7 @@ import { getData } from '../actions';
 
 const mapStateToProps = (state) => ({
     credentials: state.credentials,
-    data: state.data || []
+    data: state.data
 });
 
 const mapDispatchToProps = {

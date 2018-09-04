@@ -1,13 +1,23 @@
 import { RECEIVE_DATA } from '../actions/actionTypes';
 import { PERSISTER_RECEIVE } from '../actions/persisterActionTypes';
 import { CREDENTIALS, NO_CREDENTIALS } from '../constants';
+import initialState from '../initialState';
+
+function stateFromCredentials(prevState, credentials) {
+    const state = credentials === NO_CREDENTIALS ? initialState : prevState;
+
+    return {
+        ...state,
+        credentials
+    }
+}
 
 function persisterReceive(state, action) {
     switch (action.key) {
-        case CREDENTIALS: return {
-            ...state,
-            credentials: action.value || NO_CREDENTIALS
-        };
+        case CREDENTIALS: return stateFromCredentials(
+            state,
+            action.value || NO_CREDENTIALS
+        );
 
         default: return state;
     }

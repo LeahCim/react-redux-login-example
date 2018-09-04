@@ -2,11 +2,9 @@ import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 
+import initialState from './initialState';
 import rootReducer from './reducers/rootReducer';
 
-import { PENDING_CREDENTIALS } from './constants';
-
-const initialState = { credentials: PENDING_CREDENTIALS };
 const middlewares = applyMiddleware(thunk);
 const enhancers = composeWithDevTools(middlewares);
 
