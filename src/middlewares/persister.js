@@ -8,28 +8,28 @@ import {
 
 import { receive } from '../actions/persisterActionCreators';
 
-async function load(store, key) {
+async function load(dispatch, key) {
     const value = await storage.getItem(key);
-    store.dispatch(receive(key, value));
+    dispatch(receive(key, value));
 }
 
-function save(store, key, value) {
+function save(dispatch, key, value) {
     storage.setItem(key, value);
-    store.dispatch(receive(key, value));
+    dispatch(receive(key, value));
 }
 
-function remove(store, key) {
+function remove(dispatch, key) {
     storage.removeItem(key);
-    store.dispatch(receive(key, null));
+    dispatch(receive(key, null));
 }
 
-const persister = store => next => action => {
+const persister = ({ dispatch }) => next => action => {
     const result = next(action);
 
     switch (action.type) {
-        case PERSISTER_LOAD: load(store, action.key); break;
-        case PERSISTER_SAVE: save(store, action.key, action.value); break
-        case PERSISTER_DELETE: remove(store, action.key); break
+        case PERSISTER_LOAD: load(dispatch, action.key); break;
+        case PERSISTER_SAVE: save(dispatch, action.key, action.value); break
+        case PERSISTER_DELETE: remove(dispatch, action.key); break
         default:
     }
 

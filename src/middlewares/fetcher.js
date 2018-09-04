@@ -10,21 +10,21 @@ async function fetchJson(uri, options) {
         return Promise.reject(response);
 }
 
-const fetchRequest = async (store, { responseType, uri, options }) => {
+const fetchRequest = async (dispatch, { responseType, uri, options }) => {
     try {
         const payload = await fetchJson(uri, options);
-        store.dispatch(fetchResponse(responseType, payload));
+        dispatch(fetchResponse(responseType, payload));
 
     } catch (error) {
-        store.dispatch(fetchResponse(responseType, error, true));
+        dispatch(fetchResponse(responseType, error, true));
     }
 };
 
-const fetcher = store => next => action => {
+const fetcher = ({ dispatch }) => next => action => {
     const result = next(action);
 
     switch (action.type) {
-        case FETCH_REQUEST: fetchRequest(store, action); break;
+        case FETCH_REQUEST: fetchRequest(dispatch, action); break;
         default:
     }
 
