@@ -1,5 +1,4 @@
 import { all, takeEvery, call, put } from 'redux-saga/effects';
-import storage from 'localforage';
 
 import {
     PERSISTER_LOAD,
@@ -8,19 +7,20 @@ import {
 } from '../actions/persisterActionTypes';
 
 import { receive } from '../actions/persisterActionCreators';
+import { getItem, setItem, removeItem } from '../api/storage';
 
 function* load({ key }) {
-    const value = yield call(storage.getItem, key);
+    const value = yield call(getItem, key);
     yield put(receive(key, value));
 }
 
 function* save({ key, value }) {
-    storage.setItem(key, value);
+    setItem(key, value);
     yield put(receive(key, value));
 }
 
 function* remove({ key }) {
-    storage.removeItem(key);
+    removeItem(key);
     yield put(receive(key, null));
 }
 
