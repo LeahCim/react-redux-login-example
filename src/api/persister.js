@@ -5,9 +5,9 @@ export function load(key) {
 }
 
 export function save(key, value) {
-    storage.setItem(key, value);
+    return storage.setItem(key, value);
 }
 
 export function remove(key) {
-    storage.removeItem(key);
+    return storage.removeItem(key);
 }
