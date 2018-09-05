@@ -1,21 +1,21 @@
 import { encode } from 'base-64';
 
-import { load, save, remove } from '../api/persister';
+import { getItem, setItem, removeItem } from '../api/storage';
 import { receive } from './persisterActionCreators';
 import { CREDENTIALS } from '../constants';
 
 export const loadCredentials = () => async (dispatch) => {
-    const credentials = await load(CREDENTIALS);
+    const credentials = await getItem(CREDENTIALS);
     dispatch(receive(CREDENTIALS, credentials));
 }
 
 export function saveCredentials(username, password) {
     const credentials = encode(`${username}:${password}`);
-    save(CREDENTIALS, credentials);
+    setItem(CREDENTIALS, credentials);
     return receive(CREDENTIALS, credentials);
 }
 
 export function deleteCredentials() {
-    remove(CREDENTIALS);
+    removeItem(CREDENTIALS);
     return receive(CREDENTIALS, null);
 }

@@ -1,6 +1,6 @@
 import storage from 'localforage';
 
-export async function load(key) {
+export async function getItem(key) {
     try {
         return await storage.getItem(key);
     } catch (_) {
@@ -8,7 +8,7 @@ export async function load(key) {
     }
 }
 
-export async function save(key, value) {
+export async function setItem(key, value) {
     try {
         return await storage.setItem(key, value);
     } catch (_) {
@@ -16,7 +16,7 @@ export async function save(key, value) {
     }
 }
 
-export async function remove(key) {
+export async function removeItem(key) {
     try {
         return await storage.removeItem(key);
     } catch (_) {
