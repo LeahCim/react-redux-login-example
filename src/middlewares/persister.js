@@ -1,4 +1,4 @@
-import storage from 'localforage';
+import { getItem, setItem, removeItem } from '../api/storage';
 
 import {
     PERSISTER_LOAD,
@@ -9,17 +9,17 @@ import {
 import { receive } from '../actions/persisterActionCreators';
 
 async function load(dispatch, key) {
-    const value = await storage.getItem(key);
+    const value = await getItem(key);
     dispatch(receive(key, value));
 }
 
 function save(dispatch, key, value) {
-    storage.setItem(key, value);
+    setItem(key, value);
     dispatch(receive(key, value));
 }
 
 function remove(dispatch, key) {
-    storage.removeItem(key);
+    removeItem(key);
     dispatch(receive(key, null));
 }
 
