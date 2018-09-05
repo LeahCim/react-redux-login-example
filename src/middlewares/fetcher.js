@@ -1,14 +1,6 @@
-import { FETCH_REQUEST } from "../actions/fetcherActionTypes";
-import { fetchResponse } from "../actions/fetcherActionCreators";
-
-async function fetchJson(uri, options) {
-    const response = await fetch(uri, options);
-
-    if (response.status === 200)
-        return response.json();
-    else
-        return Promise.reject(response);
-}
+import { FETCH_REQUEST } from '../actions/fetcherActionTypes';
+import { fetchResponse } from '../actions/fetcherActionCreators';
+import fetchJson from '../api/fetchJson';
 
 const fetchRequest = async (dispatch, { responseType, uri, options }) => {
     try {
