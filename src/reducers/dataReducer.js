@@ -2,7 +2,6 @@ import { RECEIVE_DATA } from '../actions/actionTypes';
 import { PERSISTER_RECEIVE } from '../actions/persisterActionTypes';
 import { CREDENTIALS } from '../constants';
 
-
 function persisterReceive(state, action) {
     if (action.key !== CREDENTIALS) return state;
 
